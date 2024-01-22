@@ -26,7 +26,7 @@ void adicionarTarefa(struct Tarefa tarefas[], int *nTarefas, const char *descric
 }
 
 void concluirTarefa(struct Tarefa tarefas[], int nTarefas, int indice){
-  if (indice >= 0 && indice < nTarefas){
+  if (indice > 0 && indice <= nTarefas){
     tarefas[indice - 1].concluida = 1;
     printf ("Tarefa marcada como concluída!\n");
   }
@@ -49,8 +49,8 @@ void listaTarefas(struct Tarefa tarefas[], int nTarefas){
 }
 
 void removerTarefa (struct Tarefa tarefas[], int *nTarefas, int indice){
-  if (nTarefas >= 0 && indice <= *nTarefas){
-    for (int i = indice; i < *nTarefas - 1; i++){
+  if (*nTarefas > 0 && indice > 0 && indice <= *nTarefas){
+    for (int i = indice - 1; i < *nTarefas - 1; i++){
       tarefas[i] = tarefas [i + 1];
     }
     (*nTarefas)--;
@@ -81,7 +81,7 @@ int main (){
     switch (escolha){
       case 1:
         printf ("Informe a descrição da tarefa: ");
-        scanf ("%s", descricao);
+        scanf (" %[^\n]", descricao);
         adicionarTarefa(tarefas, &nTarefas, descricao);
         break;
 
@@ -101,13 +101,14 @@ int main (){
         removerTarefa(tarefas, &nTarefas, indice);
         break;
       
-      case 0:
+      case 5:
         printf ("Saindo do programa... Até logo!\n");
+        break;
       
       default: 
-        printf ("Opção inválida! tente novamente.\n");
+        printf ("Opção inválida! Tente novamente.\n");
     }
-  } while (escolha != 0);
+  } while (escolha != 5);
 
   return 0;
 }
